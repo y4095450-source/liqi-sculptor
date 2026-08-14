@@ -1259,6 +1259,32 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   text-align: center;
 }
+.hero-overlay,
+.hero-content,
+.hand-bg-overlay,
+.hand-text,
+.contact-bg::after {
+  pointer-events: none;
+}
+.hero-bg, .hand-bg, .contact-bg { z-index: 0; }
+.hero-content, .hand-text, .contact-content { z-index: 2; }
+.video-controls-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 5;
+  pointer-events: none;
+  animation: hint-pulse 2s ease-in-out infinite;
+}
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
 .contact-content .contact-headline { text-align: center; }
 .contact-content .contact-list { align-self: center; }
 .contact-content .contact-qr-card { display: inline-flex; }
@@ -2342,5 +2368,26 @@ gsap.to('.chapter-thousand .thousand-bg img', {
 });
 
 </script>
+
+// 移动端视频自动播放 hack: 用户第一次触摸即触发所有视频播放
+(function(){
+  function tryPlay(videos){
+    videos.forEach(function(v){
+      if(v.paused){
+        v.muted = true;
+        v.play().catch(function(){});
+      }
+    });
+  }
+  document.addEventListener('touchstart', function onFirst(){
+    tryPlay(document.querySelectorAll('video'));
+    document.removeEventListener('touchstart', onFirst);
+  }, {once:true, passive:true});
+  document.addEventListener('click', function onFirst(){
+    tryPlay(document.querySelectorAll('video'));
+    document.removeEventListener('click', onFirst);
+  }, {once:true});
+})();
+
 </body>
 </html>
