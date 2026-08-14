@@ -668,16 +668,34 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(20px, 2.5vw, 32px);
   letter-spacing: 0.15em;
   position: relative;
-  padding: 0 8px;
+  padding: 0 24px;
+  text-align: center;
+  white-space: nowrap;
+  display: inline-block;
 }
 .masters-list li::after {
   content: '·';
   position: absolute;
-  right: -32px;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--c-cinnabar);
   font-weight: 900;
 }
+.masters-list li:nth-child(4n)::after,
 .masters-list li:last-child::after { display: none; }
+
+/* 屏 5 列表改用 grid 4 列, 1000px 容器内完美对齐 */
+.masters-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px 0;
+  list-style: none;
+  justify-items: center;
+  margin-bottom: 80px;
+  font-family: var(--f-serif);
+  font-weight: 500;
+}
 
 .masters-quote {
   font-size: clamp(20px, 2.5vw, 28px);
@@ -1077,13 +1095,19 @@ a { color: inherit; text-decoration: none; }
 .chapter-contact {
   min-height: 100vh;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--c-cream);
   text-align: center;
   overflow: hidden;
   padding: 40px 0;
+}
+.contact-stage {
+  position: relative;
+  z-index: 2;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 48px;
 }
 .contact-bg {
   position: absolute;
@@ -1406,8 +1430,12 @@ a { color: inherit; text-decoration: none; }
     margin-bottom: 24px;
   }
   .masters-list {
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px 24px;
     margin-bottom: 48px;
+  }
+  .masters-list li {
+    padding: 0 12px;
   }
   .masters-list li {
     font-size: clamp(16px, 4vw, 22px) !important;
@@ -1763,6 +1791,8 @@ a { color: inherit; text-decoration: none; }
       <li>顾子惠</li>
       <li>秦理斌</li>
       <li>于忠正</li>
+      <li>林散之</li>
+      <li>舒同</li>
     </ul>
     <div class="masters-quote">
       一代大家，被一群最挑剔的眼睛，<br>
@@ -1894,6 +1924,7 @@ a { color: inherit; text-decoration: none; }
       <source src="assets/video/liqi-2-web.mp4" type="video/mp4">
     </video>
   </div>
+  <div class="contact-stage">
   <div class="contact-content">
     <div class="contact-tag">垂询洽谈</div>
     <h2 class="contact-headline">凡有缘者，<br>皆可问刀。</h2>
@@ -1911,18 +1942,19 @@ a { color: inherit; text-decoration: none; }
         <span class="contact-val">兰州 · 水磨坊</span>
       </div>
     </div>
-    <div class="contact-qr-card">
+    <div class="contact-sig">
+      <div class="sig-seal">刻</div>
+      <div class="sig-name">黎琪 · 金城一把刀</div>
+    </div>
+  </div>
+  </div>
+  <div class="contact-qr-card">
       <img src="assets/qr/liqi-pingning-wechat.jpg" alt="黎平宁微信二维码" class="contact-qr">
       <div class="qr-meta">
         <span class="qr-name">黎平宁</span>
         <span class="qr-tag">微信 · 金城一把刀</span>
         <span class="qr-tip">扫码添加</span>
       </div>
-    </div>
-    <div class="contact-sig">
-      <div class="sig-seal">刻</div>
-      <div class="sig-name">黎琪 · 金城一把刀</div>
-    </div>
   </div>
 </section>
 
