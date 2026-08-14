@@ -1259,6 +1259,27 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   text-align: center;
 }
+
+/* === 屏 1/9 背景 CSS kenburns 动画 (替代视频, 100% 显示) === */
+.hero-bg-animated,
+.contact-bg-animated {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: kenburns 18s ease-in-out infinite alternate;
+  filter: contrast(1.05) saturate(0.95);
+}
+@keyframes kenburns {
+  0%   { transform: scale(1.00) translate(0, 0); }
+  50%  { transform: scale(1.10) translate(-1%, -1%); }
+  100% { transform: scale(1.15) translate(-2%, 1%); }
+}
+.contact-bg-animated {
+  filter: contrast(1.05) saturate(0.9);
+}
 .hero-overlay,
 .hero-content,
 .hand-bg-overlay,
@@ -1795,11 +1816,7 @@ a { color: inherit; text-decoration: none; }
 <!-- 屏 1 · 钩子 -->
 <section class="chapter chapter-hero" id="chapter-1">
   <div class="hero-bg">
-    <video class="hero-video" autoplay loop muted playsinline preload="auto" controls playsinline poster="assets/web/works-loft-environment.jpg">
-      <source src="assets/video/liqi-hero-mini.mp4" type="video/mp4">
-      <source src="assets/video/liqi-1-web.mp4" type="video/mp4">
-    </video>
-    <img src="assets/crops/wood-carved-text.jpg" alt="" class="hero-poster" loading="eager">
+    <img src="assets/crops/wood-carved-text.jpg" alt="" class="hero-poster hero-bg-animated" loading="eager">
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
@@ -2046,10 +2063,7 @@ a { color: inherit; text-decoration: none; }
 <!-- 屏 9 · 邀请 -->
 <section class="chapter chapter-contact" id="chapter-9">
   <div class="contact-bg">
-    <video class="contact-video" autoplay loop muted playsinline preload="auto" controls playsinline poster="assets/web/works-loft-environment.jpg">
-      <source src="assets/video/liqi-making-mini.mp4" type="video/mp4">
-      <source src="assets/video/liqi-2-web.mp4" type="video/mp4">
-    </video>
+    <img src="assets/web/works-loft-environment.jpg" alt="水磨坊木亭" class="contact-bg-animated" loading="eager">
   </div>
   <div class="contact-stage">
   <div class="contact-content">
@@ -2366,28 +2380,6 @@ gsap.to('.chapter-thousand .thousand-bg img', {
     scrub: 1,
   }
 });
-
-</script>
-
-// 移动端视频自动播放 hack: 用户第一次触摸即触发所有视频播放
-(function(){
-  function tryPlay(videos){
-    videos.forEach(function(v){
-      if(v.paused){
-        v.muted = true;
-        v.play().catch(function(){});
-      }
-    });
-  }
-  document.addEventListener('touchstart', function onFirst(){
-    tryPlay(document.querySelectorAll('video'));
-    document.removeEventListener('touchstart', onFirst);
-  }, {once:true, passive:true});
-  document.addEventListener('click', function onFirst(){
-    tryPlay(document.querySelectorAll('video'));
-    document.removeEventListener('click', onFirst);
-  }, {once:true});
-})();
 
 </body>
 </html>
